@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
+	<groupId>com.github.skrethel</groupId>
+	<artifactId>simple-dynamo-sdk</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>Simple Dynamo SDK</name>
+	<url>https://github.com/Skrethel/simple-dynamo-sdk</url>
+	<description>Very basic SDK for AWS Dynamo DB that has minimal dependencies</description>
+	<scm>
+		<connection>scm:git@github.com:Skrethel/simple-dynamo-sdk.git</connection>
+		<developerConnection>scm:git@github.com:Skrethel/simple-dynamo-sdk.git</developerConnection>
+		<url>git@github.com:Skrethel/simple-dynamo-sdk.git</url>
+	</scm>
+
+	<licenses>
+		<license>
+			<name>MIT</name>
+			<url>https://github.com/Skrethel/simple-dynamo-sdk/raw/master/LICENSE</url>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>Skrethel</name>
+		<url>https://github.com/Skrethel</url>
+	</organization>
+
+	<issueManagement>
+		<system>GitHub Issues Manager</system>
+		<url>https://github.com/Skrethel/simple-dynamo-sdk/issues</url>
+	</issueManagement>
+	
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+	</build>
+</project>

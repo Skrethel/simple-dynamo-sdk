@@ -3,9 +3,13 @@ package com.github.skrethel;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.ini4j.Ini;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,6 +26,29 @@ public class DynamoApi {
 	public DynamoApi(String key, String secret) {
 		this.key = key;
 		this.secret = secret;
+	}
+
+	public DynamoApi() throws IOException {
+		this("default");
+	}
+
+	public DynamoApi(String profileName) throws IOException {
+		String homeDir = getHome();
+
+		File credentials = new File(Paths.get(homeDir, ".aws", "credentials").toString());
+		if (!(credentials.exists() && credentials.isFile() && credentials.canRead())) {
+			throw new IOException("Unable to find ~/.aws/credentials");
+		}
+		Ini ini = new Ini(credentials);
+		key = ini.get(profileName, "aws_access_key_id");
+		secret = ini.get(profileName, "aws_secret_access_key");
+		if (key == null || secret == null) {
+			throw new IOException("Unable to find key and/or secret in profile " + profileName);
+		}
+	}
+
+	private String getHome() {
+		return System.getProperty("user.home");
 	}
 
 	private static byte[] HmacSHA256(String data, byte[] key) throws Exception {
@@ -150,9 +177,7 @@ public class DynamoApi {
 	 */
 	public static void main(String[] args) throws Exception {
 
-		String key = "key_id";
-		String secret = "secret";
-		DynamoApi dynamoApi = new DynamoApi(key, secret);
+		DynamoApi dynamoApi = new DynamoApi();
 		String tableDescription = "{";
 		tableDescription += "\"KeySchema\": [{\"KeyType\": \"HASH\",\"AttributeName\": \"Id\"}],";
 		tableDescription += "\"TableName\": \"TestTable\",\"AttributeDefinitions\": [{\"AttributeName\": \"Id\",\"AttributeType\": \"S\"}],";

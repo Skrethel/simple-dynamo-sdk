@@ -114,7 +114,7 @@ public class DynamoApi {
 
 	public String getItem(String region, String tableName, boolean consistent, String idFieldName, String id) throws Exception {
 		String amzTarget = "DynamoDB_20120810.GetItem";
-		String payload = "{ \"TableName\": \"" + tableName + "\", \"ConsistentRead\": " + Boolean.toString(consistent) + ",\"Key\": {\"" + idFieldName + "\": {\"N\" : \"" + id + "\"}}" + "}";
+		String payload = "{ \"TableName\": \"" + tableName + "\", \"ConsistentRead\": " + Boolean.toString(consistent) + ",\"Key\": {\"" + idFieldName + "\": {\"S\" : \"" + id + "\"}}" + "}";
 		return makeDynamoRequest(region, amzTarget, payload);
 	}
 

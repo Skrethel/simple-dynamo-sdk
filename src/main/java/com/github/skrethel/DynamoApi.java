@@ -112,6 +112,12 @@ public class DynamoApi {
 		return makeDynamoRequest(region, amzTarget, payload);
 	}
 
+	public String getItem(String region, String tableName, boolean consistent, String idFieldName, String id) throws Exception {
+		String amzTarget = "DynamoDB_20120810.GetItem";
+		String payload = "{ \"TableName\": \"" + tableName + "\", \"ConsistentRead\": " + Boolean.toString(consistent) + ",\"Key\": {\"" + idFieldName + "\": {\"N\" : \"" + id + "\"}}" + "}";
+		return makeDynamoRequest(region, amzTarget, payload);
+	}
+
 	public String createDynamoTable(String region, String tableDescription) throws Exception {
 		String amzTarget = "DynamoDB_20120810.CreateTable";
 		return makeDynamoRequest(region, amzTarget, tableDescription);
